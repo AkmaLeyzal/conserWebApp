@@ -250,7 +250,7 @@ def main_menu():
             payment_queue = st.session_state['payment_queue']
             all_tickets = payment_queue.showQueue()
             if all_tickets != "Antrian Kosong":
-                col1, col2, col3, col4, col5, col6 = st.columns([6,12,12,5,5,6])
+                col1, col2, col3, col4, col5, col6 = st.columns([10,12,12,5,5,6])
                 col1.write("Nama")
                 col2.write("Nomor Tiket")
                 col3.write("Konser")
