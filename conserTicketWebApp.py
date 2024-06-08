@@ -7,9 +7,7 @@ import os
 
 class MongoDB:
     def __init__(self):
-        monggo_user = os.getenv('MonggoUser')
-        monggo_pass = os.getenv('MongoPass')
-        self.client = pymongo.MongoClient(f"mongodb+srv://{monggo_user}:{monggo_pass}@akmaleyzaldatabases.lfu1fxc.mongodb.net/")
+        self.client = pymongo.MongoClient(f"mongodb+srv://{st.secret["MonggoUser"}:{st.secret['MonggoPass']}@akmaleyzaldatabases.lfu1fxc.mongodb.net/")
         self.db = self.client["concert_database"]
         self.tickets = self.db["tickets"]
         self.users = self.db["users"]
