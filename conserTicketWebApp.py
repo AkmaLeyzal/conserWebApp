@@ -234,7 +234,7 @@ def main_menu():
 
     elif st.session_state.page == "Lacak Antrian Tiket":
         st.header("Lacak Antrian Tiket")
-        column1, column2 = ([8, 2])
+        column1, column2 = st.columns([8, 2])
         name_to_search = column1.text_input("Cari berdasarkan nama")
         if column2.st.button("Cari", key="search_button"):
             payment_queue = st.session_state['payment_queue']
