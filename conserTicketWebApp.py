@@ -132,7 +132,7 @@ class TicketPurchase:
 
                 st.text(
                     f"Memproses pembayaran tiket {category} sejumlah {quantity} untuk {name} (No. Tiket: {ticket_number})")
-                st.write(f"Total harga yang harus dibayar: Rp {total_price}")
+                st.write(f"Total harga yang harus dibayar: Rp {total_price:,}")
 
                 remaining_time = deadline - time.time()
                 minutes, seconds = divmod(remaining_time, 60)
@@ -250,8 +250,8 @@ def main_menu():
             all_tickets = payment_queue.showQueue()
             if all_tickets != "Antrian Kosong":
                 col1, col2, col3, col4, col5, col6 = st.columns([7,11,12,5,5,6])
-                col1.write("Nama")
-                col2.write("Nomor Tiket")
+                col1.markdown("Nama")
+                col2.text("Nomor Tiket")
                 col3.write("Konser")
                 col4.write("Kategori")
                 col5.write("Jumlah")
