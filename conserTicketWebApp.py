@@ -207,6 +207,9 @@ def main_menu():
                              f"{capacity:,}/{max_cap[i % len(max_cap)]})")
                 st.write("---")
 
+        with st.expander("Lihat lebih lanjut"):
+            st.write("Ini adalah konten yang tersembunyi dalam expander.")
+
     elif st.session_state.page == "Pembelian Tiket":
         st.header("Beli Tiket")
         purchase_system = TicketPurchase()
