@@ -203,7 +203,7 @@ def main_menu():
                 st.write(f"### {concert}")
                 for i, (category, capacity) in enumerate(categories.items()):
                     price = price_dict[concert][category]
-                    st.write(f"- {category}: Rp {price} (Kapasitas tersedia: "
+                    st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
                              f"{capacity}/{max_cap[i % len(max_cap)]})")
                 st.write("---")
 
@@ -218,7 +218,7 @@ def main_menu():
             quantity = 1
             st.session_state['total_price'] = st.session_state['categories'][
                                                   st.session_state['selected_category']] * quantity
-            st.write(f"Total harga: Rp {st.session_state['total_price']}")
+            st.write(f"Total harga: Rp {st.session_state['total_price']:,}")
             if st.button("Buy Now", key="buy_now_button"):
                 purchase_system.add_to_queue(name, ticket_number, st.session_state['selected_category'], quantity)
                 st.session_state.page = "Lihat List Konser"
