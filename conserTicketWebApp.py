@@ -3,7 +3,6 @@ from collections import deque
 import pymongo
 import time
 import datetime
-import os
 
 class MongoDB:
     def __init__(self):
