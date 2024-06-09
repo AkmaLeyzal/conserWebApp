@@ -246,7 +246,7 @@ def main_menu():
                 col4.write("Kategori")
                 col5.write("Jumlah")
                 col6.write("Total Harga")
-                st.writee("---")
+                st.write("---")
                 
                 for ticket in found_tickets:
                     col1.write(ticket['name'])
