@@ -234,8 +234,9 @@ def main_menu():
 
     elif st.session_state.page == "Lacak Antrian Tiket":
         st.header("Lacak Antrian Tiket")
-        name_to_search = st.text_input("Cari berdasarkan nama")
-        if st.button("Cari", key="search_button"):
+        column1, column2 = ([8, 2])
+        name_to_search = column1.text_input("Cari berdasarkan nama")
+        if column2.st.button("Cari", key="search_button"):
             payment_queue = st.session_state['payment_queue']
             found_tickets = payment_queue.search_by_name(name_to_search)
             if found_tickets:
