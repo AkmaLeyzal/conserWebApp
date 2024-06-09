@@ -205,10 +205,9 @@ def main_menu():
                     price = price_dict[concert][category]
                     st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
                              f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
+                with st.expander("Lihat lebih lanjut"):
+                    st.write("kkkkkkkkkk")
                 st.write("---")
-
-        with st.expander("Lihat lebih lanjut"):
-            st.write("Ini adalah konten yang tersembunyi dalam expander.")
 
     elif st.session_state.page == "Pembelian Tiket":
         st.header("Beli Tiket")
