@@ -204,7 +204,7 @@ def main_menu():
                 for i, (category, capacity) in enumerate(categories.items()):
                     price = price_dict[concert][category]
                     st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
-                             f"{capacity}/{max_cap[i % len(max_cap)]})")
+                             f"{capacity}/{max_cap[i % len(max_cap)]:,})")
                 st.write("---")
 
     elif st.session_state.page == "Pembelian Tiket":
@@ -250,9 +250,9 @@ def main_menu():
             all_tickets = payment_queue.showQueue()
             if all_tickets != "Antrian Kosong":
                 col1, col2, col3, col4, col5, col6 = st.columns([7,11,12,5,5,6])
-                col1.markdown("Nama")
-                col2.text("Nomor Tiket")
-                col3.write("Konser")
+                col1.write("# Nama")
+                col2.write("## Nomor Tiket")
+                col3.write("### Konser")
                 col4.write("Kategori")
                 col5.write("Jumlah")
                 col6.write("Total Harga")
