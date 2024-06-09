@@ -246,7 +246,7 @@ def main_menu():
                 col4.write("Kategori")
                 col5.write("Jumlah")
                 col6.write("Total Harga")
-                st.wrtie("---")
+                st.writee("---")
                 
                 for ticket in found_tickets:
                     col1.write(ticket['name'])
@@ -262,13 +262,14 @@ def main_menu():
             payment_queue = st.session_state['payment_queue']
             all_tickets = payment_queue.showQueue()
             if all_tickets != "Antrian Kosong":
+                col1, col2, col3, col4, col5, col6 = st.columns([7,11,12,5,5,6])
                 col1.write("Nama")
                 col2.write("Nomor Tiket")
                 col3.write("Konser")
                 col4.write("Kategori")
                 col5.write("Jumlah")
                 col6.write("Total Harga")
-                st.wrtie("---")
+                st.write("---")
 
                 for ticket in all_tickets:
                     col1.write(ticket['name'])
