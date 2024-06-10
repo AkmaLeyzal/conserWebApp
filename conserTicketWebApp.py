@@ -223,33 +223,24 @@ def main_menu():
         date_dict = purchase_system.dateKonser
         capacity_dict = st.session_state['capacity']
         max_cap = ['500', '1000', '2000', '5000']
-        # for concert, categories in capacity_dict.items():
-        #     with st.container():
-        #         st.write(f"### {concert}")
-        #         if concert in description_dict:
-        #             for desc in description_dict.items():
-        #                 '''letak deskripsi'''
-        #             with st.expander("Lihat lebih lanjut"):
-        #                 '''letak tanggal'''
-        #                 '''letak lokasi'''
-        #                 st.write(f"Tanggal: {description_dict[concert]['date']}")
-        #                 st.write(f"Lokasi: {description_dict[concert]['location']}")
-        #                 for i, (category, capacity) in enumerate(categories.items()):
-        #                     price = price_dict[concert][category]
-        #                     st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
-        #                              f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
-        #         st.write("---")
         for concert, categories in capacity_dict.items():
             with st.container():
                 st.write(f"### {concert}")
-                st.write(description_dict[concert])
-                with st.expander("Lihat lebih lanjut"):
-                    st.write(f"Tanggal: {date_dict[concert]}")
-                    st.write(f"Lokasi: {location_dict[concert]}")
-                    for i, (category, capacity) in enumerate(categories.items()):
-                        price = price_dict[concert][category]
-                        st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
-                                 f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
+                if concert in description_dict:
+                    for desc in description_dict.values():
+                        st.write(desc)
+                    with st.expander("Lihat lebih lanjut"):
+                        for loc in location_dict.values():
+                            st.write(f'lokasi: {loc}')
+                        for dates in date_dict.values():
+                            st.write(f'Tanggal: {dates}')
+                        st.write('')
+                        st.write(f"Tanggal: {description_dict[concert]['date']}")
+                        st.write(f"Lokasi: {description_dict[concert]['location']}")
+                        for i, (category, capacity) in enumerate(categories.items()):
+                            price = price_dict[concert][category]
+                            st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
+                                     f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
                 st.write("---")
 
     elif st.session_state.page == "Pembelian Tiket":
