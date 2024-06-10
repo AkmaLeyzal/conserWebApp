@@ -14,6 +14,7 @@ class MongoDB:
         self.purchases = self.db["purchases"]
         self.concert_prices = self.db["concert_prices"]
         self.concert_capacity = self.db["concert_capacity"]
+        self.concert_description =  self.db["concert_description"]
 
     def get_concert_prices(self):
         prices = {}
@@ -26,6 +27,12 @@ class MongoDB:
         for doc in self.concert_capacity.find():
             capacity[doc['concert']] = doc['capacity']
         return capacity
+
+    def get_concert_description(self):
+        description = {}
+        for doc in self.concert_description.find():
+            description[doc['concert']] = doc['description']
+        return description
 
 class Queue:
     def __init__(self):
@@ -72,6 +79,7 @@ class TicketPurchase:
         self.db = MongoDB()
         self.priceKonser = self.db.get_concert_prices()
         self.capacityKonser = self.db.get_concert_capacity()
+        self.descriptionKonser = self.db.get_concert_description()
 
         if 'capacity' not in st.session_state:
             st.session_state['capacity'] = self.capacityKonser
@@ -196,17 +204,20 @@ def main_menu():
 
         purchase_system = TicketPurchase()
         price_dict = purchase_system.priceKonser
+        description_dict = purchase_system.descriptionKonser
         capacity_dict = st.session_state['capacity']
         max_cap = ['500', '1000', '2000', '5000']
         for concert, categories in capacity_dict.items():
             with st.container():
                 st.write(f"### {concert}")
-                for i, (category, capacity) in enumerate(categories.items()):
-                    price = price_dict[concert][category]
-                    st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
-                             f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
+                '''letak menampilkan deskripsi'''
                 with st.expander("Lihat lebih lanjut"):
-                    st.write("kkkkkkkkkk")
+                    '''letak menempatkan tanggal'''
+                    '''letak menempatkan lokasi'''
+                    for i, (category, capacity) in enumerate(categories.items()):
+                        price = price_dict[concert][category]
+                        st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
+                                 f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
                 st.write("---")
 
     elif st.session_state.page == "Pembelian Tiket":
