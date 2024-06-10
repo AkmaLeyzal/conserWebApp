@@ -31,12 +31,20 @@ class MongoDB:
     def get_concert_description(self):
         description = {}
         for doc in self.concert_description.find():
-            description[doc['concert']] = {
-                "description": doc.get("description", "Deskripsi tidak tersedia."),
-                "date": doc.get("date", "Tanggal tidak tersedia."),
-                "location": doc.get("location", "Lokasi tidak tersedia.")
-            }
+            description[doc['concert']] = doc["description"]
         return description
+
+    def get_concert_location(self):
+        location = {}
+        for doc in self.concert_description.find():
+            location[doc['concert']] = doc['location']
+        return location
+
+    def get_concert_date(self):
+        date = {}
+        for doc in self.concert_description.find():
+            date[doc['concert']] = doc['date']
+        return date
 
 class Queue:
     def __init__(self):
@@ -84,6 +92,8 @@ class TicketPurchase:
         self.priceKonser = self.db.get_concert_prices()
         self.capacityKonser = self.db.get_concert_capacity()
         self.descriptionKonser = self.db.get_concert_description()
+        self.dateKonser = self.db.get_concert_date()
+        self.locationKonser = self.db.get_concert_location()
 
         if 'capacity' not in st.session_state:
             st.session_state['capacity'] = self.capacityKonser
@@ -209,16 +219,36 @@ def main_menu():
         purchase_system = TicketPurchase()
         price_dict = purchase_system.priceKonser
         description_dict = purchase_system.descriptionKonser
+        location_dict = purchase_system.locationKonser
+        date_dict = purchase_system.dateKonser
         capacity_dict = st.session_state['capacity']
         max_cap = ['500', '1000', '2000', '5000']
+        # for concert, categories in capacity_dict.items():
+        #     with st.container():
+        #         st.write(f"### {concert}")
+        #         if concert in description_dict:
+        #             for desc in description_dict.items():
+        #                 '''letak deskripsi'''
+        #             with st.expander("Lihat lebih lanjut"):
+        #                 '''letak tanggal'''
+        #                 '''letak lokasi'''
+        #                 st.write(f"Tanggal: {description_dict[concert]['date']}")
+        #                 st.write(f"Lokasi: {description_dict[concert]['location']}")
+        #                 for i, (category, capacity) in enumerate(categories.items()):
+        #                     price = price_dict[concert][category]
+        #                     st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
+        #                              f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
+        #         st.write("---")
         for concert, categories in capacity_dict.items():
             with st.container():
                 st.write(f"### {concert}")
                 if concert in description_dict:
-                    st.write(description_dict[concert]['description'])  # Menampilkan deskripsi
+                    st.write(description_dict[concert])
                     with st.expander("Lihat lebih lanjut"):
-                        st.write(f"Tanggal: {description_dict[concert]['date']}")
-                        st.write(f"Lokasi: {description_dict[concert]['location']}")
+                        if concert in date_dict:
+                            st.write(f"Tanggal: {date_dict[concert]}")
+                        if concert in location_dict:
+                            st.write(f"Lokasi: {location_dict[concert]}")
                         for i, (category, capacity) in enumerate(categories.items()):
                             price = price_dict[concert][category]
                             st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
