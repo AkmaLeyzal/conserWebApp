@@ -234,7 +234,7 @@ def main_menu():
                     st.write('Harga: ')
                     for i, (category, capacity) in enumerate(categories.items()):
                         price = price_dict[concert][category]
-                        st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
+                        st.write(f"    - {category}: Rp {price:,} (Kapasitas tersedia: "
                                  f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
                 st.write("---")
 
