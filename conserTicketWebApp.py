@@ -231,6 +231,7 @@ def main_menu():
                 with st.expander("Lihat lebih lanjut"):
                     st.write(f"Lokasi: {location_dict[concert]}")
                     st.write(f"Tanggal: {date_dict[concert]}")
+                    st.write('Harga: ')
                     for i, (category, capacity) in enumerate(categories.items()):
                         price = price_dict[concert][category]
                         st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
