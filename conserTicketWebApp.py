@@ -239,32 +239,80 @@ def main_menu():
                 st.write("---")
 
     elif st.session_state.page == "Pembelian Tiket":
+        st.header("Beli Tiket")
         purchase_system = TicketPurchase()
         purchase_system.select_concert()
-        if st.session_state['concert_selected']:
-            category = purchase_system.select_category()
-            st.session_state['selected_category'] = category
-            st.session_state['category_selected'] = True
-
-        if st.session_state.get('category_selected', False):
+        if st.session_state.get('concert_selected', False):
             name = st.text_input("Masukkan nama Anda")
-            quantity = st.number_input("Jumlah tiket", min_value=1, step=1)
-
-            if st.button("Tambahkan ke Antrian Pembayaran"):
-                ticket_number = purchase_system.generate_ticket_number()
+            st.session_state['selected_category'] = purchase_system.select_category()
+            ticket_number = purchase_system.generate_ticket_number()
+            quantity = 1
+            st.session_state['total_price'] = st.session_state['categories'][
+                                                  st.session_state['selected_category']] * quantity
+            st.write(f"Total harga: Rp {st.session_state['total_price']:,}")
+            if st.button("Buy Now", key="buy_now_button"):
                 purchase_system.add_to_queue(name, ticket_number, st.session_state['selected_category'], quantity)
+                st.session_state.page = "Lihat List Konser"
+                st.rerun()
 
     elif st.session_state.page == "Proses Pembayaran":
+        st.header("Proses Pembayaran")
         purchase_system = TicketPurchase()
         purchase_system.process_payments()
+        if st.button("Kembali ke Halaman Utama", key="back_home_button"):
+            st.session_state.page = "Lihat List Konser"
+            st.rerun()
 
     elif st.session_state.page == "Lacak Antrian Tiket":
         st.header("Lacak Antrian Tiket")
-        if 'payment_queue' in st.session_state:
-            st.write("Antrian Pembayaran Saat Ini:")
-            st.write(st.session_state['payment_queue'].showQueue())
-        else:
-            st.write("Tidak ada antrian pembayaran saat ini.")
+        column1, column2 = st.columns([8, 2])
+        name_to_search = column1.text_input("Cari berdasarkan nama")
+        if column2.button("Cari", key="search_button"):
+            payment_queue = st.session_state['payment_queue']
+            found_tickets = payment_queue.search_by_name(name_to_search)
+            if found_tickets:
+                col1, col2, col3, col4, col5, col6 = st.columns([7, 11, 12, 5, 5, 6])
+                col1.write("Nama")
+                col2.write("Nomor Tiket")
+                col3.write("Konser")
+                col4.write("Kategori")
+                col5.write("Jumlah")
+                col6.write("Total Harga")
+                st.write("---")
+
+                for ticket in found_tickets:
+                    col1.write(ticket['name'])
+                    col2.write(ticket['ticket_number'])
+                    col3.write(ticket['concert'])
+                    col4.write(ticket['category'])
+                    col5.write(ticket['quantity'])
+                    col6.write(ticket['total_price'])
+            else:
+                st.write("Tidak ada tiket yang ditemukan untuk nama tersebut.")
+
+        if st.button("Tampilkan Semua Antrian", key="show_queue_button"):
+            payment_queue = st.session_state['payment_queue']
+            all_tickets = payment_queue.showQueue()
+            if all_tickets != "Antrian Kosong":
+                col1, col2, col3, col4, col5, col6 = st.columns([7, 11, 12, 5, 5, 6])
+                col1.write("Nama")
+                col2.write("Nomor Tiket")
+                col3.write("Konser")
+                col4.write("Kategori")
+                col5.write("Jumlah")
+                col6.write("Total Harga")
+                st.write("---")
+
+                for ticket in all_tickets:
+                    col1.write(ticket['name'])
+                    col2.write(ticket['ticket_number'])
+                    col3.write(ticket['concert'])
+                    col4.write(ticket['category'])
+                    col5.write(ticket['quantity'])
+                    col6.write(ticket['total_price'])
+            else:
+                st.write(all_tickets)
+
 
 if __name__ == "__main__":
     main_menu()
