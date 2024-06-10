@@ -226,7 +226,7 @@ def main_menu():
 
         for concert, categories in capacity_dict.items():
             with st.container():
-                st.write(f"### {concert}")
+                st.write(f"###Konser {concert}")
                 st.write(description_dict[concert])
                 with st.expander("Lihat lebih lanjut"):
                     st.write(f"Lokasi: {location_dict[concert]}")
