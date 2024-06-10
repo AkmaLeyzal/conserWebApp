@@ -226,16 +226,17 @@ def main_menu():
         for concert, categories in capacity_dict.items():
             with st.container():
                 st.write(f"### {concert}")
-                for desc in description_dict.values():
+                for descs in description_dict.items():
+                    desc = description_dict[concert]
                     st.write(desc)
                 with st.expander("Lihat lebih lanjut"):
-                    for loc in location_dict.values():
-                        st.write(f'lokasi: {loc}')
-                    for dates in date_dict.values():
+                    for location in location_dict.items():
+                        locs = location_dict[concert]
+                        st.write(f'lokasi: {locs}')
+                    for dateee in date_dict.items():
+                        dates = date_dict[concert]
                         st.write(f'Tanggal: {dates}')
                     st.write('')
-                    st.write(f"Tanggal: {description_dict[concert]['date']}")
-                    st.write(f"Lokasi: {description_dict[concert]['location']}")
                     for i, (category, capacity) in enumerate(categories.items()):
                         price = price_dict[concert][category]
                         st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
