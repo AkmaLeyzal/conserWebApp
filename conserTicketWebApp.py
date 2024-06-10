@@ -224,17 +224,17 @@ def main_menu():
         capacity_dict = st.session_state['capacity']
         max_cap = ['500', '1000', '2000', '5000']
         for concert, categories in capacity_dict.items():
+            dates = date_dict[concert]
+            desc = description_dict[concert]
+            locs = location_dict[concert]
             with st.container():
                 st.write(f"### {concert}")
                 for descs in description_dict.items():
-                    desc = description_dict[concert]
                     st.write(desc)
                 with st.expander("Lihat lebih lanjut"):
                     for location in location_dict.items():
-                        locs = location_dict[concert]
                         st.write(f'lokasi: {locs}')
                     for dateee in date_dict.items():
-                        dates = date_dict[concert]
                         st.write(f'Tanggal: {dates}')
                     st.write('')
                     for i, (category, capacity) in enumerate(categories.items()):
