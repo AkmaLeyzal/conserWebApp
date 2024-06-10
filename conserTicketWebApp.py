@@ -242,17 +242,14 @@ def main_menu():
         for concert, categories in capacity_dict.items():
             with st.container():
                 st.write(f"### {concert}")
-                if concert in description_dict:
-                    st.write(description_dict[concert])
-                    with st.expander("Lihat lebih lanjut"):
-                        if concert in date_dict:
-                            st.write(f"Tanggal: {date_dict[concert]}")
-                        if concert in location_dict:
-                            st.write(f"Lokasi: {location_dict[concert]}")
-                        for i, (category, capacity) in enumerate(categories.items()):
-                            price = price_dict[concert][category]
-                            st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
-                                     f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
+                st.write(description_dict[concert])
+                with st.expander("Lihat lebih lanjut"):
+                    st.write(f"Tanggal: {date_dict[concert]}")
+                    st.write(f"Lokasi: {location_dict[concert]}")
+                    for i, (category, capacity) in enumerate(categories.items()):
+                        price = price_dict[concert][category]
+                        st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
+                                 f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
                 st.write("---")
 
     elif st.session_state.page == "Pembelian Tiket":
