@@ -14,7 +14,7 @@ class MongoDB:
         self.purchases = self.db["purchases"]
         self.concert_prices = self.db["concert_prices"]
         self.concert_capacity = self.db["concert_capacity"]
-        self.concert_description =  self.db["concert_description"]
+        self.concert_description = self.db["concert_description"]
 
     def get_concert_prices(self):
         prices = {}
@@ -31,7 +31,11 @@ class MongoDB:
     def get_concert_description(self):
         description = {}
         for doc in self.concert_description.find():
-            description[doc['concert']] = doc['description']
+            description[doc['concert']] = {
+                "description": doc["description"],
+                "date": doc["date"],
+                "location": doc["location"]
+            }
         return description
 
 class Queue:
@@ -210,10 +214,10 @@ def main_menu():
         for concert, categories in capacity_dict.items():
             with st.container():
                 st.write(f"### {concert}")
-                '''letak menampilkan deskripsi'''
+                st.write(description_dict[concert]['description'])  # Menampilkan deskripsi
                 with st.expander("Lihat lebih lanjut"):
-                    '''letak menempatkan tanggal'''
-                    '''letak menempatkan lokasi'''
+                    st.write(f"Tanggal: {description_dict[concert]['date'].strftime('%Y-%m-%d')}")
+                    st.write(f"Lokasi: {description_dict[concert]['location']}")
                     for i, (category, capacity) in enumerate(categories.items()):
                         price = price_dict[concert][category]
                         st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
