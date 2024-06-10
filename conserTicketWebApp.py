@@ -32,9 +32,9 @@ class MongoDB:
         description = {}
         for doc in self.concert_description.find():
             description[doc['concert']] = {
-                "description": doc["description"],
-                "date": doc["date"],
-                "location": doc["location"]
+                "description": doc.get("description", "Deskripsi tidak tersedia."),
+                "date": doc.get("date", "Tanggal tidak tersedia."),
+                "location": doc.get("location", "Lokasi tidak tersedia.")
             }
         return description
 
@@ -214,14 +214,15 @@ def main_menu():
         for concert, categories in capacity_dict.items():
             with st.container():
                 st.write(f"### {concert}")
-                st.write(description_dict[concert]['description'])  # Menampilkan deskripsi
-                with st.expander("Lihat lebih lanjut"):
-                    st.write(f"Tanggal: {description_dict[concert]['date'].strftime('%Y-%m-%d')}")
-                    st.write(f"Lokasi: {description_dict[concert]['location']}")
-                    for i, (category, capacity) in enumerate(categories.items()):
-                        price = price_dict[concert][category]
-                        st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
-                                 f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
+                if concert in description_dict:
+                    st.write(description_dict[concert]['description'])  # Menampilkan deskripsi
+                    with st.expander("Lihat lebih lanjut"):
+                        st.write(f"Tanggal: {description_dict[concert]['date']}")
+                        st.write(f"Lokasi: {description_dict[concert]['location']}")
+                        for i, (category, capacity) in enumerate(categories.items()):
+                            price = price_dict[concert][category]
+                            st.write(f"- {category}: Rp {price:,} (Kapasitas tersedia: "
+                                     f"{capacity:,} / {int(max_cap[i % len(max_cap)]):,})")
                 st.write("---")
 
     elif st.session_state.page == "Pembelian Tiket":
