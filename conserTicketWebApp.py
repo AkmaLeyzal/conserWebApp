@@ -244,13 +244,14 @@ def main_menu():
         purchase_system.select_concert()
         if st.session_state.get('concert_selected', False):
             name = st.text_input("Masukkan nama Anda")
+            
             st.session_state['selected_category'] = purchase_system.select_category()
             ticket_number = purchase_system.generate_ticket_number()
             quantity = 1
             st.session_state['total_price'] = st.session_state['categories'][
                                                   st.session_state['selected_category']] * quantity
             st.write(f"Total harga: Rp {st.session_state['total_price']:,}")
-            if st.button("Beli", key="buy_now_button"):
+            if st.button("Beli", key="buy_now_button") and name != "":
                 purchase_system.add_to_queue(name, ticket_number, st.session_state['selected_category'], quantity)
                 st.session_state.page = "Lihat List Konser"
                 st.rerun()
