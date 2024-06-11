@@ -251,10 +251,13 @@ def main_menu():
             st.session_state['total_price'] = st.session_state['categories'][
                                                   st.session_state['selected_category']] * quantity
             st.write(f"Total harga: Rp {st.session_state['total_price']:,}")
-            if st.button("Beli", key="buy_now_button") and name != "":
-                purchase_system.add_to_queue(name, ticket_number, st.session_state['selected_category'], quantity)
-                st.session_state.page = "Lihat List Konser"
-                st.rerun()
+            if st.button("Beli", key="buy_now_button"):
+                if name == "":
+                    st.warning("Nama tidak boleh kosong")
+                else:
+                    purchase_system.add_to_queue(name, ticket_number, st.session_state['selected_category'], quantity)
+                    st.session_state.page = "Lihat List Konser"
+                    st.rerun()
 
     elif st.session_state.page == "Proses Pembayaran":
         st.header("Proses Pembayaran")
