@@ -271,27 +271,30 @@ def main_menu():
         st.header("Lacak Antrian Tiket")
         name_to_search = st.text_input("Cari berdasarkan nama")
         if st.button("Cari", key="search_button"):
-            payment_queue = st.session_state['payment_queue']
-            found_tickets = payment_queue.search_by_name(name_to_search)
-            if found_tickets:
-                col1, col2, col3, col4, col5, col6 = st.columns([7, 11, 12, 5, 5, 6])
-                col1.write("Nama")
-                col2.write("Nomor Tiket")
-                col3.write("Konser")
-                col4.write("Kategori")
-                col5.write("Jumlah")
-                col6.write("Total Harga")
-                st.write("---")
-
-                for ticket in found_tickets:
-                    col1.write(ticket['name'])
-                    col2.write(ticket['ticket_number'])
-                    col3.write(ticket['concert'])
-                    col4.write(ticket['category'])
-                    col5.write(ticket['quantity'])
-                    col6.write(ticket['total_price'])
+            if name_to_search == "":
+                st.warning("Masukan nama yang ingin dicari !!!")
             else:
-                st.write("Tidak ada tiket yang ditemukan untuk nama tersebut.")
+                payment_queue = st.session_state['payment_queue']
+                found_tickets = payment_queue.search_by_name(name_to_search)
+                if found_tickets:
+                    col1, col2, col3, col4, col5, col6 = st.columns([7, 11, 12, 5, 5, 6])
+                    col1.write("Nama")
+                    col2.write("Nomor Tiket")
+                    col3.write("Konser")
+                    col4.write("Kategori")
+                    col5.write("Jumlah")
+                    col6.write("Total Harga")
+                    st.write("---")
+    
+                    for ticket in found_tickets:
+                        col1.write(ticket['name'])
+                        col2.write(ticket['ticket_number'])
+                        col3.write(ticket['concert'])
+                        col4.write(ticket['category'])
+                        col5.write(ticket['quantity'])
+                        col6.write(ticket['total_price'])
+                else:
+                    st.write("Tidak ada tiket yang ditemukan untuk nama tersebut.")
 
         if st.button("Tampilkan Semua Antrian", key="show_queue_button"):
             payment_queue = st.session_state['payment_queue']
