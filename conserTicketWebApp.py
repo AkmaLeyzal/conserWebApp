@@ -318,7 +318,7 @@ def main_menu():
                         col5.write(ticket['quantity'])
                         col6.write(ticket['total_price'])
             else:
-                st.warning(f"all_tickets")
+                st.warning(f"{all_tickets}")
 
 
 if __name__ == "__main__":
