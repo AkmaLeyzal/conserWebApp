@@ -200,6 +200,7 @@ def main_menu():
         st.session_state.page = "Lihat List Konser"
 
     st.sidebar.title("Menu")
+    st.logo("https://juragankreatif.com/wp-content/uploads/2020/01/Menggunakan-Visual-Double-Entendre-1024x683.webp")
     if st.sidebar.button("Lihat List Konser", key="lihat_list_konser_button"):
         st.session_state.page = "Lihat List Konser"
         st.rerun()
