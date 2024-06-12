@@ -310,14 +310,15 @@ def main_menu():
                 st.write("---")
 
                 for ticket in all_tickets:
-                    col1.write(ticket['name'])
-                    col2.write(ticket['ticket_number'])
-                    col3.write(ticket['concert'])
-                    col4.write(ticket['category'])
-                    col5.write(ticket['quantity'])
-                    col6.write(ticket['total_price'])
+                    st.container():
+                        col1.write(ticket['name'])
+                        col2.write(ticket['ticket_number'])
+                        col3.write(ticket['concert'])
+                        col4.write(ticket['category'])
+                        col5.write(ticket['quantity'])
+                        col6.write(ticket['total_price'])
             else:
-                st.write(all_tickets)
+                st.warning(all_tickets)
 
 
 if __name__ == "__main__":
