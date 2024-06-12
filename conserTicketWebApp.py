@@ -63,7 +63,7 @@ class Queue:
         if len(self.queue) != 0:
             return list(self.queue)
         else:
-            return "Antrian Kosong"
+            return None
 
     def nextQueue(self):
         if len(self.queue) != 0:
@@ -310,7 +310,7 @@ def main_menu():
                 st.write("---")
 
                 for ticket in all_tickets:
-                    st.container():
+                    with st.container():
                         col1.write(ticket['name'])
                         col2.write(ticket['ticket_number'])
                         col3.write(ticket['concert'])
@@ -318,7 +318,7 @@ def main_menu():
                         col5.write(ticket['quantity'])
                         col6.write(ticket['total_price'])
             else:
-                st.warning(f"{all_tickets}")
+                st.warning(f"Tidak ada antrian")
 
 
 if __name__ == "__main__":
