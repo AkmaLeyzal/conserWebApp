@@ -317,6 +317,7 @@ def main_menu():
                         col4.write(ticket['category'])
                         col5.write(ticket['quantity'])
                         col6.write(ticket['total_price'])
+                        st.write("---")
             else:
                 st.warning(f"Tidak ada antrian")
 
