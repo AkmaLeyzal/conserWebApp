@@ -71,6 +71,12 @@ class Queue:
         else:
             return None
 
+    def priorQueue(self, item):
+        if len(self.queue) >= 0:
+            return self.queue.appendleft(item)
+        else:
+            None
+
     def search_by_name(self, name):
         found_tickets = []
         for ticket in self.queue:
@@ -123,15 +129,26 @@ class TicketPurchase:
     def add_to_queue(self, name, ticket_number, category, quantity):
         total_price = st.session_state['categories'][category] * quantity
         deadline = time.time() + 300
-        self.payment_queue.enqueue({
-            'name': name,
-            'ticket_number': ticket_number,
-            'concert': st.session_state['selected_concert'],
-            'category': category,
-            'quantity': quantity,
-            'total_price': total_price,
-            'deadline': deadline
-        })
+        if category == 'VIP':
+            self.payment_queue.priorQueue({
+                'name': name,
+                'ticket_number': ticket_number,
+                'concert': st.session_state['selected_concert'],
+                'category': category,
+                'quantity': quantity,
+                'total_price': total_price,
+                'deadline': deadline
+            })
+        else:
+            self.payment_queue.enqueue({
+                'name': name,
+                'ticket_number': ticket_number,
+                'concert': st.session_state['selected_concert'],
+                'category': category,
+                'quantity': quantity,
+                'total_price': total_price,
+                'deadline': deadline
+            })
         st.success(f"Tiket {category} sejumlah {quantity} berhasil ditambahkan ke antrian pembayaran.")
         st.write(f"Total harga: Rp {total_price}\n")
         st.session_state['category_selected'] = False
