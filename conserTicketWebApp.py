@@ -4,6 +4,7 @@ import pymongo
 import time
 import datetime
 
+
 class MongoDB:
     def __init__(self):
         self.MyDatabase = st.secrets['MyDatabase']
@@ -45,6 +46,7 @@ class MongoDB:
         for doc in self.concert_description.find():
             date[doc['concert']] = doc['date']
         return date
+
 
 class Queue:
     def __init__(self):
@@ -92,6 +94,7 @@ class Queue:
             else:
                 break
 
+
 class TicketPurchase:
     def __init__(self):
         self.db = MongoDB()
@@ -129,7 +132,7 @@ class TicketPurchase:
     def add_to_queue(self, name, ticket_number, category, quantity):
         total_price = st.session_state['categories'][category] * quantity
         deadline = time.time() + 300
-        if category == 'VIP':
+        if str(category).lower() == 'vip':
             self.payment_queue.priorQueue({
                 'name': name,
                 'ticket_number': ticket_number,
@@ -212,6 +215,7 @@ class TicketPurchase:
             else:
                 st.warning("Tidak ada antrian pembayaran untuk pengguna saat ini.\n")
 
+
 def main_menu():
     if 'page' not in st.session_state:
         st.session_state.page = "Lihat List Konser"
@@ -261,7 +265,7 @@ def main_menu():
         purchase_system.select_concert()
         if st.session_state.get('concert_selected', False):
             name = st.text_input("Masukkan nama Anda")
-            
+
             st.session_state['selected_category'] = purchase_system.select_category()
             ticket_number = purchase_system.generate_ticket_number()
             quantity = 1
@@ -302,7 +306,7 @@ def main_menu():
                     col5.write("Jumlah")
                     col6.write("Total Harga")
                     st.write("---")
-    
+
                     for ticket in found_tickets:
                         col1.write(ticket['name'])
                         col2.write(ticket['ticket_number'])
@@ -327,14 +331,12 @@ def main_menu():
                 st.write("---")
 
                 for ticket in all_tickets:
-                    with st.container():
-                        col1.write(ticket['name'])
-                        col2.write(ticket['ticket_number'])
-                        col3.write(ticket['concert'])
-                        col4.write(ticket['category'])
-                        col5.write(ticket['quantity'])
-                        col6.write(ticket['total_price'])
-                    st.write("---")
+                    col1.write(ticket['name'])
+                    col2.write(ticket['ticket_number'])
+                    col3.write(ticket['concert'])
+                    col4.write(ticket['category'])
+                    col5.write(ticket['quantity'])
+                    col6.write(ticket['total_price'])
             else:
                 st.warning(f"Tidak ada antrian")
 
