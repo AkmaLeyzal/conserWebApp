@@ -77,7 +77,7 @@ class Queue:
         for i in range(len(self.queue)):
             check = self.queue[0 + i]
             if str(check['category']).lower() != 'vip':
-                return self.queue.insert(int(i+1), item)
+                return self.queue.insert(int(i), item)
                 break
 
     def search_by_name(self, name):
