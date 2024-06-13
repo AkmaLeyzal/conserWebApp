@@ -65,7 +65,7 @@ class Queue:
         if len(self.queue) != 0:
             return list(self.queue)
         else:
-            return None
+            return 'Tidak ada antrian'
 
     def nextQueue(self):
         if len(self.queue) != 0:
