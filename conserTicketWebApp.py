@@ -339,7 +339,7 @@ def main_menu():
                     col5.write(ticket['quantity'])
                     col6.write(ticket['total_price'])
             else:
-                st.write(all_ticket)
+                st.write('Tidak ada antrian')
 
 
 if __name__ == "__main__":
