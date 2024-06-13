@@ -65,7 +65,7 @@ class Queue:
         if len(self.queue) != 0:
             return list(self.queue)
         else:
-            return "Tidak ada antrian"
+            return "Antrian kosong"
 
     def nextQueue(self):
         if len(self.queue) != 0:
@@ -321,7 +321,7 @@ def main_menu():
         if st.button("Tampilkan Semua Antrian", key="show_queue_button"):
             payment_queue = st.session_state['payment_queue']
             all_tickets = payment_queue.showQueue()
-            if all_tickets != "Tidak ada antrian":
+            if all_tickets != "Antrian kosong":
                 col1, col2, col3, col4, col5, col6 = st.columns([7, 11, 12, 5, 5, 6])
                 col1.write("Nama")
                 col2.write("Nomor Tiket")
