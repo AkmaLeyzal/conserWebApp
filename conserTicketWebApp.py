@@ -74,7 +74,11 @@ class Queue:
             return None
 
     def priorQueue(self, item):
-        return self.queue.appendleft(item)
+        for i in range(len(self.queue)):
+            check = self.queue[0 + i]
+            if str(check['category']).lower() != 'vip':
+                return self.queue.insert(int(i), item)
+                break
 
     def search_by_name(self, name):
         found_tickets = []
