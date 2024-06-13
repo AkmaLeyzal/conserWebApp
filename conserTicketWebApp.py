@@ -74,10 +74,7 @@ class Queue:
             return None
 
     def priorQueue(self, item):
-        if len(self.queue) >= 0:
-            return self.queue.appendleft(item)
-        else:
-            None
+        return self.queue.appendleft(item)
 
     def search_by_name(self, name):
         found_tickets = []
