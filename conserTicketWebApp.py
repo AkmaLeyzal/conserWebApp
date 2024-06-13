@@ -76,7 +76,7 @@ class Queue:
     def priorQueue(self, item):
         for i in range(len(self.queue)):
             check = self.queue[0 + i]
-            if str(check['category']).lower() == 'vip':
+            if str(check['category']).lower() != 'vip':
                 self.queue.insert(int(i), item)
                 break
 
