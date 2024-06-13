@@ -320,7 +320,7 @@ def main_menu():
 
         if st.button("Tampilkan Semua Antrian", key="show_queue_button"):
             payment_queue = st.session_state['payment_queue']
-            all_tickets = payment_queue.showQueue()
+            all_tickets = Queue.showQueue()
             if all_tickets == "Antrian Kosong":
                 st.write(all_tickets)
             else:
