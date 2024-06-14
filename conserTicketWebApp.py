@@ -76,8 +76,10 @@ class Queue:
     def priorQueue(self, item):
         for i in range(len(self.queue)):
             check = self.queue[0 + i]
-            if str(check['category']).lower() != 'vip' or len(self.queue) == 0:
-                return self.queue.insert(int(i), item)
+            if len(self.queue) == 0:
+                self.enqueue(item)
+            elif str(check['category']).lower() != 'vip':
+                self.queue.insert(int(i), item)
                 break
 
     def search_by_name(self, name):
