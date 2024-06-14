@@ -74,17 +74,17 @@ class Queue:
             return None
 
     def priorQueue(self, item):
-    if str(item['category']).lower() == 'vip':
-        check = False
-        for i in range(len(self.queue)):
-            if str(self.queue[i]['category']).lower() != 'vip':
-                self.queue.insert(i, item)
-                check = True
-                break
-        if not check:
+        if str(item['category']).lower() == 'vip':
+            check = False
+            for i in range(len(self.queue)):
+                if str(self.queue[i]['category']).lower() != 'vip':
+                    self.queue.insert(i, item)
+                    check = True
+                    break
+            if not check:
+                self.queue.append(item)
+        else:
             self.queue.append(item)
-    else:
-        self.queue.append(item)
 
 
     def search_by_name(self, name):
