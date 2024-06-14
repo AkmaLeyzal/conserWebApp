@@ -76,8 +76,9 @@ class Queue:
     def priorQueue(self, item):
         for i in range(len(self.queue)):
             check = self.queue[0 + i]
-            if len(self.queue) == 0:
+            if self.nextQueue() == None:
                 self.enqueue(item)
+                break
             elif str(check['category']).lower() != 'vip':
                 self.queue.insert(int(i), item)
                 break
